@@ -1,3 +1,6 @@
+
+<img width="1000" alt="Teste validado" src="https://user-images.githubusercontent.com/15350895/206339118-ebff1f76-d81b-4160-bfb0-d9ab816cdc23.png">
+
 <hr/>
 
 <h4 align="center"> 
@@ -25,3 +28,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Jest](https://jestjs.io/pt-BR/)
 
 ### 📸 Prints Resultados
+
+<img width="1000" alt="Implementacao do teste" src="https://user-images.githubusercontent.com/15350895/206339122-9b6dc8f5-79ba-4210-b2f2-2f877b1e2a41.png">
+
