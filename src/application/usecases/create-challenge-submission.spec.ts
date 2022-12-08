@@ -1,39 +1,37 @@
-import { InMemoryChallengesRepository } from '../../../tests/repoitories/in-memory-challenges-repository';
-import { InMemoryStudentsRepository } from '../../../tests/repoitories/in-memory-students-repository';
-import { Challenge } from '../../domain/entities/challenge';
-import { Student } from '../../domain/entities/student';
-import { CreateChallengeSubmission } from './create-challenge-submission';
+import { InMemoryChallengesRepository } from "../../../tests/repoitories/in-memory-challenges-repository";
+import { InMemoryStudentsRepository } from "../../../tests/repoitories/in-memory-students-repository";
+import { Challenge } from "../../domain/entities/challenge";
+import { Student } from "../../domain/entities/student";
+import { CreateChallengeSubmission } from "./create-challenge-submission";
 
+describe("Create challenge submission use case", () => {
+  it("should be able to create a new challenge submission", async () => {
+    const studentsRepository = new InMemoryStudentsRepository();
+    const challengesRepository = new InMemoryChallengesRepository();
 
+    const student = Student.create({
+      name: "John Doe",
+      email: "johndoe@example.com",
+    });
 
-describe('Create challenge submission use case', () => {
-    it('should be able to create a new challenge submission', async () => {
-        const studentsRepository = new InMemoryStudentsRepository();
-        const challengesRepository = new InMemoryChallengesRepository();
+    const challenge = Challenge.create({
+      title: "Challenge 01",
+      instructionUrl: "http://example.com",
+    });
 
-        const student = Student.create({
-            name: 'Gabriel',
-            email: 'gabrielarianofx@gmail.com'
-        })
+    studentsRepository.items.push(student);
+    challengesRepository.items.push(challenge);
 
-        const challenge = Challenge.create({
-            title: 'Challenge 01',
-            instructionUrl: 'http://example.com'
-        })
+    const sut = new CreateChallengeSubmission(
+      studentsRepository,
+      challengesRepository
+    );
 
-        studentsRepository.items.push(student)
-        challengesRepository.items.push(challenge)
+    const response = await sut.execute({
+      studentId: student.id,
+      challengeId: challenge.id,
+    });
 
-        const sut = new CreateChallengeSubmission(
-            studentsRepository,
-            challengesRepository
-        );
-        
-        const response = await sut.execute({
-            studentId: student.id,
-            challengeId: challenge.id,
-        })
-
-        expect(response).toBeTruthy()
-    })
-})
+    expect(response).toBeTruthy();
+  });
+});
